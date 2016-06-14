@@ -1,0 +1,28 @@
+{
+  "name": "TouchEventsMobileJS",
+  "authors": [
+    "Rafael da Silva Ferreira <rafael@swift-yah.io>"
+  ],
+  "description": "A project to be a PoC of use of touch events from JS in mobile devices.",
+  "main": "index.html",
+  "keywords": [
+    "swift-yah",
+    "js",
+    "touch",
+    "device",
+    "mobile"
+  ],
+  "license": "MIT",
+  "homepage": "https://swift-yah.io",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Touchable-jQuery-Plugin": "git@github.com:dotmaster/Touchable-jQuery-Plugin.git"
+  }
+}
