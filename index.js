@@ -26,6 +26,8 @@ var main = function () {
         var self = this;
 
         if (self.mobileDetect.mobile()) {
+            alert('is mobile');
+            
             $(document).bind('mousedown', self.registerTouch);
         }
     };
