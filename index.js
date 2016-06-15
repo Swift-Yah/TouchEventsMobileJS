@@ -10,21 +10,21 @@ var main = function () {
         $('#overlay').show();
     };
 
-    OverlayMobile.prototype.logTouch = function(event) {
+    OverlayMobile.prototype.registerTouch = function (e) {
+        console.log(e);
+
         var self = this;
 
         clearTimeout(self.timeout);
 
         self.timeout = setTimeout(showOverlay, 5000);
-
-        console.log(event);
     };
 
     OverlayMobile.prototype.init = function () {
         var self = this;
 
         if (self.mobileDetect.mobile()) {
-            $(document).bind('moveend mouseup', self.logTouch);
+            $(document).bind('moveend mousedown', self.registerTouch);
         }
     };
 
