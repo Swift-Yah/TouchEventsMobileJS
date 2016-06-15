@@ -10,12 +10,14 @@ var main = function () {
         $('#overlay').show();
     };
 
-    OverlayMobile.prototype.registerTouch = function (e) {
-        console.log(e);
-
+    OverlayMobile.prototype.updateStatus = function (e, touch) {
         $('#cursor-status').text(e.type);
+    };
 
+    OverlayMobile.prototype.registerTouch = function (e, touch) {
         var self = this;
+
+        console.log(e.type, touch);
 
         clearTimeout(self.timeout);
 
@@ -26,9 +28,19 @@ var main = function () {
         var self = this;
 
         if (self.mobileDetect.mobile()) {
-            alert('is mobile');
-            
-            $(document).bind('mousedown', self.registerTouch);
+            var bindable = $(document).Touchable();
+
+            bindable
+                .bind('touchablemove touchableend tap longTap doubleTap', self.updateStatus)
+                .bind('touchableend', self.registerTouch);
+
+            document.addEventListener('focus', function () {
+                $('#tab-status').text = 'focus';
+            });
+
+            document.addEventListener('blur', function () {
+                $('#tab-status').text = 'blur';
+            });
         }
     };
 
