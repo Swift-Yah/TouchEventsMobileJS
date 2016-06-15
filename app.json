@@ -2,7 +2,7 @@
   "name": "TouchEventsMobileJS",
   "description": "Use of the touch events on mobile devices with JS.",
   "scripts": {
-      "postinstall": "bower install"
+    "postinstall": "npm install -g bower && bower install"
   },
   "env": {
   },
