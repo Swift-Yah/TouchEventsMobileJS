@@ -13,6 +13,8 @@ var main = function () {
     OverlayMobile.prototype.registerTouch = function (e) {
         console.log(e);
 
+        $('#cursor-status').text(e.type);
+
         var self = this;
 
         clearTimeout(self.timeout);
@@ -24,7 +26,7 @@ var main = function () {
         var self = this;
 
         if (self.mobileDetect.mobile()) {
-            $(document).bind('moveend mousedown', self.registerTouch);
+            $(document).bind('mousedown', self.registerTouch);
         }
     };
 
