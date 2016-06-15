@@ -2,6 +2,7 @@
   "name": "TouchEventsMobileJS",
   "description": "Use of the touch events on mobile devices with JS.",
   "scripts": {
+      "postinstall": "bower install"
   },
   "env": {
   },
@@ -12,7 +13,7 @@
   ],
   "buildpacks": [
     {
-      "url": "heroku/nodejs"
+      "url": "https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-nodejs"
     }
   ]
 }
