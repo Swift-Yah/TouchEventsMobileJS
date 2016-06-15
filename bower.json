@@ -23,6 +23,8 @@
     "tests"
   ],
   "dependencies": {
-    "Touchable-jQuery-Plugin": "git@github.com:dotmaster/Touchable-jQuery-Plugin.git"
+    "Touchable-jQuery-Plugin": "git@github.com:dotmaster/Touchable-jQuery-Plugin.git",
+    "mobile-detect": "git@github.com:hgoebl/mobile-detect.js.git#^1.3.2",
+    "jquery": "^3.0.0"
   }
 }
