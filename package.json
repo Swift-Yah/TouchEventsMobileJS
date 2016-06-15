@@ -1,0 +1,28 @@
+{
+  "name": "touch-event-mobile-js",
+  "version": "1.0.0",
+  "description": "Use of the touch events on mobile devices with JS.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swift-Yah/TouchEventsMobileJS.git"
+  },
+  "keywords": [
+    "js",
+    "event",
+    "mobile",
+    "touch"
+  ],
+  "author": "Rafael da Silva Ferreira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Swift-Yah/TouchEventsMobileJS/issues"
+  },
+  "homepage": "https://github.com/Swift-Yah/TouchEventsMobileJS#readme",
+  "engines": {
+    "node": "6.2.1"
+  }
+}
