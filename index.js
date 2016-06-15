@@ -2,25 +2,35 @@ var main = function () {
     function OverlayMobile() {
         this.currentUserAgent = window.navigator.userAgent;
         this.mobileDetect = new MobileDetect(this.currentUserAgent);
+        this.timeout = null;
     }
 
-    OverlayMobile.prototype.init = function () {
-        var body = $('body').Touchable();
-        var message = $('#user-status');
+    var showOverlay = function () {
+        $('html, body').animate({ scrollTop: 0 }, "slow");
+        $('#overlay').show();
+    };
+
+    OverlayMobile.prototype.logTouch = function(event) {
         var self = this;
 
-        if (self.mobile()) {
-            return
-        }
+        clearTimeout(self.timeout);
 
-        body.bind('touchableend', function (e, touch) {
-            message.value = "Touch ended";
-        });
+        self.timeout = setTimeout(showOverlay, 5000);
 
-        body.bind('touchablemove', function (e, touch) {
-            message.value = "Touch moving"
-        });
+        console.log(event);
     };
+
+    OverlayMobile.prototype.init = function () {
+        var self = this;
+
+        if (self.mobileDetect.mobile()) {
+            $(document).bind('moveend mouseup', self.logTouch);
+        }
+    };
+
+    return {
+        OverlayMobile: OverlayMobile
+    }
 }();
 
 document.addEventListener('DOMContentLoaded', function () {
