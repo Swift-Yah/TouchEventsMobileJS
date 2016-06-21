@@ -1,4 +1,4 @@
-var main = function () {
+var overlay = function () {
     /**
      * Constructor that initialize all required properties for OverlayMobile class.
      */
@@ -113,7 +113,7 @@ var main = function () {
 }();
 
 document.addEventListener('DOMContentLoaded', function () {
-    var overlayMobile = new main.getInstance();
+    var overlayMobile = new overlay.getInstance();
 
     overlayMobile.init(true);
 });
