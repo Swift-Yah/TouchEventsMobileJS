@@ -9,7 +9,7 @@ var main = function () {
         this.amountOfTouches = 0;
         this.touchesTrack = [];
         this.customTimeToShow = 0;
-        this.defaultTimeToShowOverlay = 7000;
+        this.defaultTimeToShowOverlay = 10000;
         this.timeout = setTimeout(this.showOverlay, this.defaultTimeToShowOverlay);
         this.isDebug = true;
     }
