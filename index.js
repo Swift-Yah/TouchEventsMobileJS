@@ -1,4 +1,4 @@
-var overlay = function () {
+var main = function () {
     /**
      * Constructor that initialize all required properties for OverlayMobile class.
      */
@@ -40,7 +40,7 @@ var overlay = function () {
 
     OverlayMobile.prototype.showOverlay = function () {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
-        $('#overlay').show();
+        $('#main').show();
     };
 
     OverlayMobile.prototype.updateStatus = function (e, touch) {
@@ -59,7 +59,7 @@ var overlay = function () {
 
             instance.timeout = setTimeout(instance.showOverlay, instance.customTimeToShow);
 
-            return
+            return;
         }
 
         instance.touchesTrack.push(new Date());
@@ -113,7 +113,7 @@ var overlay = function () {
 }();
 
 document.addEventListener('DOMContentLoaded', function () {
-    var overlayMobile = new overlay.getInstance();
+    var overlayMobile = new main.getInstance();
 
     overlayMobile.init(true);
 });
