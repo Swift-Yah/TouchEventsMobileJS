@@ -5,11 +5,13 @@ var main = function () {
     function OverlayMobile() {
         this.currentUserAgent = window.navigator.userAgent;
         this.mobileDetect = new MobileDetect(this.currentUserAgent);
-        this.timeout = setTimeout(this.showOverlay, defaultTimeToShowOverlay);
         this.minimumNumberOfTouches = Math.round(document.body.clientHeight / screen.height);
         this.amountOfTouches = 0;
         this.touchesTrack = [];
-        this.customTimeToShow = null;
+        this.customTimeToShow = 0;
+        this.defaultTimeToShowOverlay = 7000;
+        this.timeout = setTimeout(this.showOverlay, this.defaultTimeToShowOverlay);
+        this.isDebug = true;
     }
 
     /**
@@ -17,12 +19,6 @@ var main = function () {
      * @type {OverlayMobile}
      */
     var instance;
-
-    /**
-     * The default time in seconds to show overlay.
-     * @type {number}
-     */
-    const defaultTimeToShowOverlay = 7000;
 
     /**
      * The method to get/create an unique instance of OverlayMobile class.
@@ -36,6 +32,12 @@ var main = function () {
         return instance;
     };
 
+    var log = function () {
+        if (instance.isDebug) {
+            console.log.apply(console, arguments);
+        }
+    };
+
     OverlayMobile.prototype.showOverlay = function () {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
         $('#overlay').show();
@@ -46,18 +48,22 @@ var main = function () {
     };
 
     OverlayMobile.prototype.logTouch = function (e, touch) {
-        console.log(e.type, touch);
+        log(e.type, touch);
     };
 
     OverlayMobile.prototype.registerTouch = function () {
-        if (instance.customTimeToShow) {
+        clearTimeout(instance.timeout);
+
+        if (instance.customTimeToShow != 0) {
+            log("The custom time to show already is defined");
+
+            instance.timeout = setTimeout(instance.showOverlay, instance.customTimeToShow);
+
             return
         }
 
         instance.touchesTrack.push(new Date());
         instance.amountOfTouches++;
-
-        clearTimeout(instance.timeout);
 
         if (instance.touchesTrack.length == instance.minimumNumberOfTouches) {
             var j = 0;
@@ -70,16 +76,19 @@ var main = function () {
             }
 
             instance.customTimeToShow = totalAmount / instance.amountOfTouches;
+            instance.timeout = setTimeout(instance.showOverlay, instance.customTimeToShow);
 
-            console.log(instance.customTimeToShow);
-
-            instance.timeout = setTimeout(instance.showOverlay, instance.customTimeToShow );
+            log(instance.customTimeToShow);
         } else {
-            instance.timeout = setTimeout(instance.showOverlay, defaultTimeToShowOverlay);
+            instance.timeout = setTimeout(instance.showOverlay, instance.defaultTimeToShowOverlay);
+
+            log("A custom time is NOT already defined");
         }
     };
 
-    OverlayMobile.prototype.init = function () {
+    OverlayMobile.prototype.init = function (asDebugMode) {
+        instance.isDebug = asDebugMode;
+
         if (instance.mobileDetect.mobile()) {
             var bindable = $(document).Touchable();
 
@@ -106,5 +115,5 @@ var main = function () {
 document.addEventListener('DOMContentLoaded', function () {
     var overlayMobile = new main.getInstance();
 
-    overlayMobile.init();
+    overlayMobile.init(true);
 });
