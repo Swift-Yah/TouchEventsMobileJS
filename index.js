@@ -9,6 +9,7 @@ var main = function () {
         this.minimumNumberOfTouches = Math.round(document.body.clientHeight / screen.height);
         this.amountOfTouches = 0;
         this.touchesTrack = [];
+        this.customTimeToShow = null;
     }
 
     /**
@@ -21,7 +22,7 @@ var main = function () {
      * The default time in seconds to show overlay.
      * @type {number}
      */
-    const defaultTimeToShowOverlay = 7;
+    const defaultTimeToShowOverlay = 7000;
 
     /**
      * The method to get/create an unique instance of OverlayMobile class.
@@ -49,28 +50,30 @@ var main = function () {
     };
 
     OverlayMobile.prototype.registerTouch = function () {
+        if (instance.customTimeToShow) {
+            return
+        }
+
         instance.touchesTrack.push(new Date());
         instance.amountOfTouches++;
 
         clearTimeout(instance.timeout);
 
         if (instance.touchesTrack.length == instance.minimumNumberOfTouches) {
-
-
             var j = 0;
             var totalAmount = 0;
 
             for (var i = 0, k = 1; k < instance.amountOfTouches; i++, k++) {
-                totalAmount += instance.touchesTrack[i].getTime() - instance.touchesTrack[k].getTime();
+                totalAmount += instance.touchesTrack[k].getTime() - instance.touchesTrack[i].getTime();
 
                 j++;
             }
 
-            var timeToShow = totalAmount / j;
+            instance.customTimeToShow = totalAmount / instance.amountOfTouches;
 
-            console.log(timeToShow);
+            console.log(instance.customTimeToShow);
 
-            instance.timeout = setTimeout(instance.showOverlay, timeToShow);
+            instance.timeout = setTimeout(instance.showOverlay, instance.customTimeToShow );
         } else {
             instance.timeout = setTimeout(instance.showOverlay, defaultTimeToShowOverlay);
         }
@@ -78,8 +81,6 @@ var main = function () {
 
     OverlayMobile.prototype.init = function () {
         if (instance.mobileDetect.mobile()) {
-            instance.timeout = 10;
-
             var bindable = $(document).Touchable();
 
             bindable
