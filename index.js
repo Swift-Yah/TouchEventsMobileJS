@@ -5,7 +5,7 @@ var main = function () {
     function OverlayMobile() {
         this.currentUserAgent = window.navigator.userAgent;
         this.mobileDetect = new MobileDetect(this.currentUserAgent);
-        this.timeout = null;
+        this.timeout = setTimeout(this.showOverlay, defaultTimeToShowOverlay);
         this.minimumNumberOfTouches = Math.round(document.body.clientHeight / screen.height);
         this.amountOfTouches = 0;
         this.touchesTrack = [];
@@ -13,12 +13,19 @@ var main = function () {
 
     /**
      * The unique instance for OverlayMobile class.
+     * @type {OverlayMobile}
      */
     var instance;
 
     /**
+     * The default time in seconds to show overlay.
+     * @type {number}
+     */
+    const defaultTimeToShowOverlay = 7;
+
+    /**
      * The method to get/create an unique instance of OverlayMobile class.
-     * @returns The unique instance for OverlayMobile class.
+     * @returns {OverlayMobile} The unique instance for OverlayMobile class.
      */
     var getInstance = function () {
         if (!instance) {
@@ -45,10 +52,10 @@ var main = function () {
         instance.touchesTrack.push(new Date());
         instance.amountOfTouches++;
 
-        console.log(instance.minimumNumberOfTouches);
+        clearTimeout(instance.timeout);
 
         if (instance.touchesTrack.length == instance.minimumNumberOfTouches) {
-            clearTimeout(instance.timeout);
+
 
             var j = 0;
             var totalAmount = 0;
@@ -64,11 +71,15 @@ var main = function () {
             console.log(timeToShow);
 
             instance.timeout = setTimeout(instance.showOverlay, timeToShow);
+        } else {
+            instance.timeout = setTimeout(instance.showOverlay, defaultTimeToShowOverlay);
         }
     };
 
     OverlayMobile.prototype.init = function () {
         if (instance.mobileDetect.mobile()) {
+            instance.timeout = 10;
+
             var bindable = $(document).Touchable();
 
             bindable
