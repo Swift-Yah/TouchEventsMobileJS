@@ -40,7 +40,7 @@ var main = function () {
 
     OverlayMobile.prototype.showOverlay = function () {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
-        $('#main').show();
+        $('#overlay').show();
     };
 
     OverlayMobile.prototype.updateStatus = function (e, touch) {
