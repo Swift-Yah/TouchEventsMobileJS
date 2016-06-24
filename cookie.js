@@ -19,7 +19,7 @@
 
       var cookieValue = cookiePool.substring(startIndex, endIndex);
       
-      return decodeURIComponent(cookieValue)
+      return decodeURI(cookieValue)
     }
 
     return false;
