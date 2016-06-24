@@ -21,6 +21,12 @@ var main = function () {
     this.mobileDetect = new MobileDetect(this.currentUserAgent);
 
     /**
+     * An alias for mobile function from `MobileDetect`.
+     * @type {*|String}
+     */
+    this.isMobile = this.mobileDetect.mobile();
+
+    /**
      * The calculation that defines the required number of touches for complete "machine" learn.
      * @type {number}
      */
@@ -55,9 +61,10 @@ var main = function () {
 
     /**
      * Storage the current timeout for show an overlay to the user.
+     * Only create a timeout function if we're in a mobile device.
      * @type {number|Object}
      */
-    this.userTimeOut = setTimeout(this.showOverlay, this.defaultTimeToShowOverlay);
+    this.userTimeOut = (this.isMobile) ? setTimeout(this.showOverlay, this.defaultTimeToShowOverlay) : -1;
 
     /**
      * An variable to control that whether the logs will be printed in console, or not.
