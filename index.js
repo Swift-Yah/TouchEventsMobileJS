@@ -263,7 +263,7 @@ var main = function () {
 
     if (movesAlreadyTracked) {
       instance.touchesTrack = movesAlreadyTracked;
-      instance.amountOfTouches = touchesTrack.length;
+      instance.amountOfTouches = instance.touchesTrack.length;
     }
 
     instance.isDebug = asDebugMode;
